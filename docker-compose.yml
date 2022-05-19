@@ -1,0 +1,27 @@
+version: '3'
+services:
+  server:
+    container_name: server-container
+    restart: always
+    build: ./server
+    ports:
+      - 8080:8080
+    command: npm start
+    depends_on:
+      - mongo
+  client:
+    container_name: client-container
+    restart: always
+    build: ./client
+    ports:
+      - "8081:8081"
+    depends_on:
+      - server
+  mongo:
+    container_name: mongo-backend
+    image: mongo
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env
+
