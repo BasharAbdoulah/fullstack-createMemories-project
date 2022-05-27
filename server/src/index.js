@@ -8,11 +8,6 @@ import { join } from "path";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(express.static(join(__dirname, "..", "client", "build")));
-app.get("*", (_req, res) => {
-  res.sendFile(join(__dirname, "..", "client", "build", "index.html"));
-});
-
 dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,5 +22,10 @@ mongoose
   })
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
+
+app.use(express.static(join(__dirname, "..", "client", "build")));
+app.get("*", (_req, res) => {
+  res.sendFile(join(__dirname, "..", "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
