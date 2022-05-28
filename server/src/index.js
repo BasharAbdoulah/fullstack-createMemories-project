@@ -23,9 +23,4 @@ mongoose
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
 
-app.use(express.static(join(__dirname, "..", "client", "build")));
-app.get("*", (_req, res) => {
-  res.sendFile(join(__dirname, "..", "client", "build", "index.html"));
-});
-
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
