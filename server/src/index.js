@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
-import postRoutes from "./routes.js";
+import postRoutes from "./routes/routes.js";
 import dotenv from "dotenv";
-import { join } from "path";
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 

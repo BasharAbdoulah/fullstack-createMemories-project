@@ -1,0 +1,22 @@
+{
+  "name": "barmej-last-project",
+  "version": "1.0.0",
+  "description": "\"barmej last project\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BasharAbdoulah/barmej-last-project.git"
+  },
+  "author": "Bashar Abdoulah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BasharAbdoulah/barmej-last-project/issues"
+  },
+  "engines": {
+    "node": "16.14.2"
+  },
+  "homepage": "https://github.com/BasharAbdoulah/barmej-last-project#readme"
+}

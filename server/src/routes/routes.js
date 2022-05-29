@@ -1,5 +1,5 @@
 import express from "express";
-import MemoryModel from "./models/Memory.js";
+import MemoryModel from "../models/Memory.js";
 
 const router = express.Router();
 
