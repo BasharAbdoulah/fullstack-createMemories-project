@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import postRoutes from "./routes/routes.js";
 import dotenv from "dotenv";
-
+import join from "path";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -23,8 +23,9 @@ mongoose
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+app.use(express.static(join(__dirname, "/client", "build")));
+app.get("*", (_req, res) => {
+  res.sendFile(join(__dirname, "/client", "build", "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
