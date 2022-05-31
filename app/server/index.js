@@ -19,10 +19,10 @@ app.use(cors());
 app.use(postRoutes);
 
 //
-app.use(express.static(path.join(__dirname, "/cilent/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
-});
+// app.use(express.static(path.join(__dirname, "/cilent/build")));
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+// });
 
 // concted to db
 mongoose
@@ -32,5 +32,10 @@ mongoose
   })
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
+
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
