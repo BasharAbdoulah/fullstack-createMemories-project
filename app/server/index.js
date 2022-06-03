@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(postRoutes);
 
-//
-// app.use(express.static(path.join(__dirname, "/cilent/build")));
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
-// });
+// Deploing the app
+app.use(express.static(path.join(__dirname, "/cilent/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
 
 // concted to db
 mongoose

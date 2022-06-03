@@ -27,5 +27,8 @@
     "@babel/core": "^7.17.10",
     "@babel/preset-env": "^7.17.10"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": "16.14.2"
+  }
 }
