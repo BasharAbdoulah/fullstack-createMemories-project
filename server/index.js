@@ -6,11 +6,11 @@ import postRoutes from "./routes/routes.js";
 import dotenv from "dotenv";
 const app = express();
 import path from "path";
-import { dirname } from "path";
+
 import { fileURLToPath } from "url";
 const PORT = process.env.PORT || 8080;
 
-const dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 app.use(bodyParser.json());
@@ -27,7 +27,7 @@ mongoose
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
 
-app.use(express.static(path.join(dirname, "..", "client", "build")));
+app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
