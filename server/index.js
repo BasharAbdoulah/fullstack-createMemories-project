@@ -27,10 +27,12 @@ mongoose
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
 
+// Deploing
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
+// Port
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
