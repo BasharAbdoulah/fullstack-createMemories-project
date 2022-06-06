@@ -10,19 +10,13 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const PORT = process.env.PORT || 8080;
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const dirname = dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(postRoutes);
-
-// Deploing the app
-app.use(express.static(path.join(__dirname, "/cilent/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
-});
 
 // concted to db
 mongoose
@@ -33,8 +27,9 @@ mongoose
   .then(() => console.log(" DB is conccted"))
   .catch((err) => console.log(err));
 
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
-app.get("*", (req, res) => {
+app.use(express.static(path.join(dirname, "..", "client", "build")));
+
+app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
