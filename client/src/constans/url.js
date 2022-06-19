@@ -1,3 +1,3 @@
-const MEMORIES_URI = "http://localhost:8080/memoreis";
+const MEMORIES_URI = "https://localhost/8080/memories";
 
 export { MEMORIES_URI };

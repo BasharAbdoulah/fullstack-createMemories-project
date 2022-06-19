@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(postRoutes);
 
-// concted to db
+// concted to dbs
 mongoose
   .connect(`${process.env.MONGO_URL}`, {
     useNewUrlParser: true,
@@ -28,11 +28,11 @@ mongoose
   .catch((err) => console.log(err));
 
 // Deploing
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
-
-app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-});
-
+if (process.env.MEMORIES_URI === "production") {
+  app.use(express.static(path.join(__dirname, "..", "client", "build")));
+  app.get("*", (_req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  });
+}
 // Port
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

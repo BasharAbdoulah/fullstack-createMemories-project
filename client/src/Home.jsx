@@ -2,7 +2,6 @@ import "./css/App.css";
 import memImg from "./images/memories.png";
 import React from "react";
 import Form from "./components/Form";
-import { MEMORIES_URI } from "./constans/url";
 import Memorieslist from "./components/Memorieslist/Memorieslist";
 import Footer from "./components/Footer";
 
@@ -28,7 +27,7 @@ class Home extends React.Component {
   }
 
   fetchData() {
-    fetch(MEMORIES_URI)
+    fetch(process.env.MEMORIES_URI)
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -42,7 +41,7 @@ class Home extends React.Component {
   // delete memory
   deleteMemory = (_id) => {
 
-    fetch(`${MEMORIES_URI}/${_id}`, {
+    fetch(`${process.env.MEMORIES_URI}/${_id}`, {
       method: "delete",
     }).then((res) => {
       if (res.status === 201) {
@@ -60,7 +59,7 @@ class Home extends React.Component {
     if (title === "" & creator === "" & message === "") {
       return false
     }else {
-      fetch(MEMORIES_URI, {
+      fetch(process.env.MEMORIES_URI, {
         method: "post",
         headers: {
           'content-type': 'application/json'
@@ -96,7 +95,7 @@ class Home extends React.Component {
         return false
     } else {
 
-      fetch(`${MEMORIES_URI}/${this.state.editMemoryId}`, {
+      fetch(`${process.env.MEMORIES_URI}/${this.state.editMemoryId}`, {
         method: "put",
         headers: {
           'content-type': 'application/json'
@@ -119,7 +118,7 @@ class Home extends React.Component {
   // likes function
   likeFunction = ( { idLike, like} ) => {
 
-    fetch(`${MEMORIES_URI}/${idLike}`, {
+    fetch(`${process.env.MEMORIES_URI}/${idLike}`, {
       method: "put",
       headers: {
         'content-type': 'application/json'
