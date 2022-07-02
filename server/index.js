@@ -8,9 +8,9 @@ const app = express();
 import path from "path";
 
 import { fileURLToPath } from "url";
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 app.use(bodyParser.json());
@@ -28,11 +28,11 @@ mongoose
   .catch((err) => console.log(err));
 
 // Deploing
-if (process.env.MEMORIES_URI === "production") {
-  app.use(express.static(path.join(__dirname, "..", "client", "build")));
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-  });
-}
+
+app.use(express.static(path.join(dirname, "..", "client", "build")));
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(dirname, "..", "client", "build", "index.html"));
+});
+
 // Port
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

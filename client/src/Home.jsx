@@ -27,7 +27,7 @@ class Home extends React.Component {
   }
 
   fetchData() {
-    fetch(process.env.MEMORIES_URI)
+    fetch('/memories')
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -41,7 +41,7 @@ class Home extends React.Component {
   // delete memory
   deleteMemory = (_id) => {
 
-    fetch(`${process.env.MEMORIES_URI}/${_id}`, {
+    fetch(`/memories/${_id}`, {
       method: "delete",
     }).then((res) => {
       if (res.status === 201) {
@@ -55,86 +55,87 @@ class Home extends React.Component {
 
   // on submit function
   onSubmitFunction = ({ title, creator, message }) => {
-
-    if (title === "" & creator === "" & message === "") {
-      return false
-    }else {
-      fetch(process.env.MEMORIES_URI, {
-        method: "post",
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          title,
-          creator,
-          message
-        })
-      }).then((res) => {
-        console.log(res.status);
-        if (res.status === 200) {
-          return res.json()
-        }
-        throw new Error("cant post!!!")
-      })
-      .then( (res) => this.fetchData())
-      .catch((err) => console.log(err.message))
-    }
-  }
+		if ((title === "") & (creator === "") & (message === "")) {
+			return false;
+		} else {
+			fetch("/memories", {
+				method: "post",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({
+					title,
+					creator,
+					message,
+				}),
+			})
+				.then((res) => {
+					console.log(res.status);
+					if (res.status === 200) {
+						return res.json();
+					}
+					throw new Error("cant post!!!");
+				})
+				.then((res) => this.fetchData())
+				.catch((err) => console.log(err.message));
+		}
+  };
 
   // to switch between post form and edit form
   updateEditMode = (_id) => {
-    this.setState( { editMemoryId: _id } );
-  }
+		this.setState({ editMemoryId: _id });
+  };
   submitEditFunction = () => {
-    this.setState( { editingMode: true } );
-  }
+		this.setState({ editingMode: true });
+  };
 
   // update memory values
-  updateMemory = ({title, creator, message}) => {
-    if (title === "" || creator === "" || message === "") {
-        return false
-    } else {
-
-      fetch(`${process.env.MEMORIES_URI}/${this.state.editMemoryId}`, {
-        method: "put",
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          creator,
-          title,
-          message
-        })
-      }).then((res) => {
-        if (res.status === 201) {
-          return res.json()
-        }
-        throw new Error("Can't update the memory!!!")
-      }).then((res) => this.fetchData())
-      .catch((err) => console.log(err.message))
-    }    
-  }
+  updateMemory = ({ title, creator, message }) => {
+		if (title === "" || creator === "" || message === "") {
+			return false;
+		} else {
+			fetch(`/memories/${this.state.editMemoryId}`, {
+				method: "put",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({
+					creator,
+					title,
+					message,
+				}),
+			})
+				.then((res) => {
+					if (res.status === 201) {
+						return res.json();
+					}
+					throw new Error("Can't update the memory!!!");
+				})
+				.then((res) => this.fetchData())
+				.catch((err) => console.log(err.message));
+		}
+  };
 
   // likes function
-  likeFunction = ( { idLike, like} ) => {
-
-    fetch(`${process.env.MEMORIES_URI}/${idLike}`, {
-      method: "put",
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        likes: like+1
-      })
-    }).then((res) => {
-      if (res.status === 201) {
-        return res.json()
-      }
-      throw new Error("Can't update the memory!!!")
-    }).then((res) => this.fetchData())
-    .catch((err) => console.log(err.message))
-  
-  }
+  likeFunction = ({ idLike, like }) => {
+		fetch(`/memories/${idLike}`, {
+			method: "put",
+			headers: {
+				"content-type": "application/json",
+			},
+			body: JSON.stringify({
+				likes: like + 1,
+			}),
+		})
+			.then((res) => {
+				if (res.status === 201) {
+					return res.json();
+				}
+				throw new Error("Can't update the memory!!!");
+			})
+			.then((res) => this.fetchData())
+			.catch((err) => console.log(err.message));
+  };
 
   render() {
     return (

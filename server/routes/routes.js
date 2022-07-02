@@ -4,7 +4,7 @@ import MemoryModel from "../models/Memory.js";
 const router = express.Router();
 
 // Get Memoreis
-router.get("/memoreis", async (req, res) => {
+router.get("/memories", async (req, res) => {
   try {
     const memories = await MemoryModel.find({});
 
@@ -15,7 +15,7 @@ router.get("/memoreis", async (req, res) => {
 });
 
 // Post Memoreis
-router.post("/memoreis", async (req, res) => {
+router.post("/memories", async (req, res) => {
   const newPost = new MemoryModel({
     creator: req.body.creator,
     title: req.body.title,
@@ -32,7 +32,7 @@ router.post("/memoreis", async (req, res) => {
 });
 
 // Edit Memoreis
-router.put("/memoreis/:id", async (req, res) => {
+router.put("/memories/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await MemoryModel.updateOne(
@@ -55,7 +55,7 @@ router.put("/memoreis/:id", async (req, res) => {
 });
 
 // Delete Memoreis
-router.delete("/memoreis/:id", async (req, res) => {
+router.delete("/memories/:id", async (req, res) => {
   try {
     const result = await MemoryModel.deleteOne({ _id: req.params.id });
     res.status(201).json(result);

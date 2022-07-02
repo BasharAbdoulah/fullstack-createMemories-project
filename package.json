@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/index.js",
+    "dev": "nodemon server/index.js",
+    "start": "node server/index.js",
     "heroku-postbuild": "NODE_ENV=production cd client && npm install && npm run build",
     "golive" : "lt --port 8080"
   },
